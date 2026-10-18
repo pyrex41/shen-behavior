@@ -1,5 +1,25 @@
 # Verification record
 
+## Standalone extraction — 2026-10-17
+
+Validated on macOS arm64 with Node 24.21.0 and the pinned repositories in
+`toolchain.json`, using the standalone repository layout:
+
+- `npm run bootstrap`: passed, including the local LuaJIT build.
+- `npm run format:check`: passed.
+- `npm test`: 54 passed, zero failures, three external-tool skips
+  (GraphWalker, Ghidra, Soufflé).
+- `npm run demo`: intended trace compatible, legacy trace violation,
+  migration change unapproved, two-step minimized counterexample.
+
+The ShenLogic translation integration passed using `.tools/shenlogic`.
+The full external integration gate was not run for this extraction.
+
+## Original ShenLogic branch
+
+The results below were recorded before this project was extracted into its own
+repository. They describe the original branch, not a fresh standalone run.
+
 Validated on Linux x64, Node 24.19.0, pinned LuaJIT and shen-lua from
 `toolchain.json`. External runs used Soufflé 2.5, GraphWalker 4.3.3, Ghidra 12.1.4
 and JDK 21. Downloads are checksum pinned.

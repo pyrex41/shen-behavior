@@ -2,6 +2,10 @@
   "shenlogicBase": "7a1e3ae7b680c946378dcefa11e1c63db81b1690",
   "node": "24",
   "repositories": {
+    "shenlogic": {
+      "url": "https://github.com/pyrex41/shenlogic.git",
+      "revision": "7a1e3ae7b680c946378dcefa11e1c63db81b1690"
+    },
     "shen-lua": {
       "url": "https://github.com/pyrex41/shen-lua.git",
       "revision": "1a58b83c71c60f469c15ca6054135614f95755b2"

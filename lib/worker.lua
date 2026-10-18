@@ -63,8 +63,9 @@ end
 local logicLoaded=false
 local function loadLogic()
  if logicLoaded then return end
- local f=assert(io.open('../shenlogic.shen','r'));local src=f:read('*a');f:close()
- for path in src:gmatch('%(load "([^"]+)"%)') do shen.call('load','../'..path) end
+ local logicRoot=assert(os.getenv('SHENLOGIC_ROOT'), 'SHENLOGIC_ROOT required')
+ local f=assert(io.open(logicRoot..'/shenlogic.shen','r'));local src=f:read('*a');f:close()
+ for path in src:gmatch('%(load "([^"]+)"%)') do shen.call('load',logicRoot..'/'..path) end
  src=src:gsub('%(load "[^"]+"%)','')
  shen.eval(src);logicLoaded=true
 end

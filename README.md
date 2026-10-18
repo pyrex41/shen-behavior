@@ -1,26 +1,34 @@
-# Shen behavioral reconstruction
+# Shen Behavior
 
-An executable behavioral-type system and reverse-engineering workflow inside
-ShenLogic. Shen owns the judgments and reference semantics. Source/binary
+An executable behavioral-type system and reverse-engineering workflow.
+Shen owns the judgments and reference semantics. Source/binary
 extractors produce facts; Soufflé computes may analyses; GraphWalker proposes
 paths; adapters produce observations. Neither a planner nor an extractor can
 mint an implementation proof.
+
+Originally developed in [ShenLogic](https://github.com/pyrex41/shenlogic),
+this is now a standalone project. Its history was extracted from `behavior/`
+at commit `afc46017` on `codex/behavioral-reconstruction`.
 
 ## Run
 
 Requires Node 24+, git, make, and a C compiler. No npm install scripts are run.
 
 ```sh
-cd behavior
+git clone https://github.com/pyrex41/shen-behavior.git
+cd shen-behavior
 npm run bootstrap
 npm test
 npm run demo
 node bin/behavior.mjs replay build/demo/counterexample.json
 ```
 
-The bootstrap builds pinned LuaJIT and checks out pinned shen-lua into `.tools`.
+The bootstrap builds pinned LuaJIT and checks out pinned shen-lua and ShenLogic
+into `.tools`. ShenLogic supplies the separate `logic` translation integration.
 It refuses to rewrite an unexpected existing checkout. To use an existing
 installation instead, set `LUA` and `SHEN_LUA_ROOT`, then `npm ci --ignore-scripts`.
+Set `SHENLOGIC_ROOT` to an existing ShenLogic checkout for `logic` and its
+integration test; the default is `.tools/shenlogic`.
 The application runs one persistent Shen worker, not a process per judgment.
 
 For all external integration tests on Linux x64 (roughly 800 MB of downloads):
@@ -135,5 +143,5 @@ application. The first built-in semantic refinements are affine preservation,
 effect inclusion, and method-specific retry safety. New domain logics can be added
 as Shen datatypes and checking rules with an updated rulepack identity.
 
-The same Apache-2.0 license as the parent repository applies to this code.
+This project is licensed under [Apache-2.0](LICENSE).
 External tools retain their own licenses and are not vendored here.

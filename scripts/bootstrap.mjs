@@ -24,6 +24,18 @@ for (const [name, r] of Object.entries(lock.repositories)) {
   if (head.stdout.trim() !== r.revision)
     throw Error(`Refusing to modify unexpected ${name} checkout`);
 }
+if (process.platform === "darwin" && !process.env.MACOSX_DEPLOYMENT_TARGET) {
+  const version = spawnSync("sw_vers", ["-productVersion"], {
+    encoding: "utf8",
+  });
+  if (version.status !== 0 || !/^\d+\.\d+/.test(version.stdout))
+    throw Error("Cannot determine macOS deployment target");
+  process.env.MACOSX_DEPLOYMENT_TARGET = version.stdout
+    .trim()
+    .split(".")
+    .slice(0, 2)
+    .join(".");
+}
 run("make", ["-j2"], resolve(tools, "LuaJIT"));
 run("npm", ["ci", "--ignore-scripts"], root);
 if (process.argv.includes("--external")) {

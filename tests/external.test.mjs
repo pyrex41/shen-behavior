@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { Engine } from "../lib/engine.mjs";
-import { root } from "../lib/runtime.mjs";
+import { root, shenLogicRoot } from "../lib/runtime.mjs";
 import { explore, validatePath } from "../lib/explore.mjs";
 import { graphwalker } from "../lib/graphwalker.mjs";
 import { validateFacts } from "../lib/reconstruct.mjs";
@@ -104,7 +104,7 @@ test("existing ShenLogic translation is available in the persistent worker", asy
   try {
     const output = await e.runtime.call(
       "translate-source",
-      resolve(root, "../examples/tsl-lists.shen"),
+      resolve(shenLogicRoot, "examples/tsl-lists.shen"),
       "tsl",
     );
     assert.match(output, /defined-first/);
